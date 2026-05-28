@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only Earth | 100% Plant-Based Goodness</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        earth: {
+                            green: '#2D5016',
+                            light: '#7CB342',
+                            cream: '#F5F0E8',
+                            orange: '#E65100',
+                            sky: '#4FC3F7',
+                            sand: '#D7CCC8',
+                            dark: '#1B5E20',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F5F0E8; }
+        ::-webkit-scrollbar-thumb { background: #2D5016; border-radius: 3px; }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #1B5E20 0%, #2D5016 50%, #1B5E20 100%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .float-anim { animation: float 6s ease-in-out infinite; }
+
+        .product-card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -12px rgba(45, 80, 22, 0.2);
+        }
+
+        .btn-primary {
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px -10px rgba(45, 80, 22, 0.3);
+        }
+
+        .section-reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section-reveal.animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .section-reveal.animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-blur {
+            background: rgba(245, 240, 232, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .testimonial-card {
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .cart-sidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .cart-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .toast {
+            opacity: 0;
+            transform: translateY(20px) translateX(-50%);
+            transition: all 0.3s ease;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0) translateX(-50%);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            animation: marquee 25s linear infinite;
+        }
+
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn-shimmer:hover::after {
+            left: 100%;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="font-sans bg-earth-cream text-gray-800 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-earth-green rounded-full flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <i data-lucide="leaf" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-earth-green tracking-tight">Only Earth</span>
+                </a>
+
+                <div class="hidden lg:flex items-center gap-8">
+                    <a href="#products" class="text-sm font-medium text-gray-700 hover:text-earth-green transition-colors">Products</a>
+                    <a href="#mission" class="text-sm font-medium text-gray-700 hover:text-earth-green transition-colors">Our Mission</a>
+                    <a href="#impact" class="text-sm font-medium text-gray-700 hover:text-earth-green transition-colors">Impact</a>
+                    <a href="#recipes" class="text-sm font-medium text-gray-700 hover:text-earth-green transition-colors">Recipes</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <button class="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-earth-green text-white rounded-full text-sm font-medium hover:bg-earth-dark transition-colors btn-primary" onclick="scrollToProducts()">
+                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                        Shop Now
+                    </button>
+
+                    <button class="relative p-2 hover:bg-earth-green/10 rounded-full transition-colors" id="cartBtn">
+                        <i data-lucide="shopping-cart" class="w-5 h-5 text-earth-green"></i>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-earth-orange text-white text-xs rounded-full flex items-center justify-center font-bold" id="cartCount">0</span>
+                    </button>
+
+                    <button class="lg:hidden p-2" id="mobileMenuBtn">
+                        <i data-lucide="menu" class="w-6 h-6 text-earth-green"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu fixed inset-y-0 right-0 w-80 bg-white z-50 shadow-2xl lg:hidden" id="mobileMenu">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="text-xl font-bold text-earth-green">Menu</span>
+                <button id="closeMobileMenu" class="p-2 hover:bg-gray-100 rounded-full">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="flex flex-col gap-4">
+                <a href="#products" class="text-lg font-medium text-gray-800 py-3 border-b border-gray-100">Products</a>
+                <a href="#mission" class="text-lg font-medium text-gray-800 py-3 border-b border-gray-100">Our Mission</a>
+                <a href="#impact" class="text-lg font-medium text-gray-800 py-3 border-b border-gray-100">Impact</a>
+                <a href="#recipes" class="text-lg font-medium text-gray-800 py-3 border-b border-gray-100">Recipes</a>
+                <button class="mt-4 w-full py-3 bg-earth-green text-white rounded-full font-medium" onclick="scrollToProducts()">Shop Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center overflow-hidden hero-gradient">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 lg:py-0">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white space-y-8">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-earth-light"></i>
+                        <span class="text-sm font-medium">100% Plant-Based Goodness</span>
+                    </div>
+
+                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                        Save Our <br>
+                        <span class="font-serif italic text-earth-light">Only Earth</span>
+                    </h1>
+
+                    <p class="text-lg lg:text-xl text-white/80 max-w-lg leading-relaxed">
+                        Kinder to animals, better for you. Experience the creamy, delicious taste of nature's finest plant-based milks. Zero guilt, pure goodness.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4">
+                        <button class="px-8 py-4 bg-white text-earth-green rounded-full font-semibold text-lg btn-primary shadow-lg" onclick="scrollToProducts()">
+                            Explore Products
+                        </button>
+                        <button class="px-8 py-4 bg-transparent border-2 border-white/30 text-white rounded-full font-semibold text-lg hover:bg-white/10 transition-all" onclick="showVideoModal()">
+                            <span class="flex items-center gap-2">
+                                <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                Watch Story
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="flex gap-8 pt-4">
+                        <div>
+                            <p class="text-3xl font-bold text-earth-light">100%</p>
+                            <p class="text-sm text-white/60">Plant Based</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-earth-light">0</p>
+                            <p class="text-sm text-white/60">Added Sugar</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-earth-light">100K</p>
+                            <p class="text-sm text-white/60">Trees Goal</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative lg:h-[600px] flex items-center justify-center">
+                    <div class="absolute w-96 h-96 bg-earth-light/20 rounded-full blur-3xl float-anim"></div>
+
+                    <div class="relative z-10 float-anim">
+                        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=500&h=700&fit=crop" 
+                             alt="Only Earth Products" 
+                             class="w-full max-w-md rounded-3xl shadow-2xl"
+                             style="filter: drop-shadow(0 25px 50px rgba(0,0,0,0.3));">
+
+                        <div class="absolute -top-4 -right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-2xl shadow-lg">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="heart" class="w-4 h-4 text-red-500 fill-red-500"></i>
+                                <span class="text-sm font-semibold text-earth-green">Loved by 10K+</span>
+                            </div>
+                        </div>
+
+                        <div class="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-2xl shadow-lg">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="award" class="w-4 h-4 text-earth-orange"></i>
+                                <span class="text-sm font-semibold text-earth-green">Top Rated</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wave Bottom -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-24">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="#F5F0E8"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Marquee Section -->
+    <div class="bg-earth-green py-3 overflow-hidden">
+        <div class="marquee-track flex whitespace-nowrap">
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="leaf" class="w-4 h-4"></i> 100% PLANT BASED</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="droplets" class="w-4 h-4"></i> LACTOSE FREE</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="heart-pulse" class="w-4 h-4"></i> NO CHOLESTEROL</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> NO PRESERVATIVES</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="tree-pine" class="w-4 h-4"></i> ECO FRIENDLY</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="vegan" class="w-4 h-4"></i> VEGAN CERTIFIED</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="leaf" class="w-4 h-4"></i> 100% PLANT BASED</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="droplets" class="w-4 h-4"></i> LACTOSE FREE</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="heart-pulse" class="w-4 h-4"></i> NO CHOLESTEROL</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> NO PRESERVATIVES</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="tree-pine" class="w-4 h-4"></i> ECO FRIENDLY</span>
+            <span class="text-white/80 text-sm font-medium mx-8 flex items-center gap-2"><i data-lucide="vegan" class="w-4 h-4"></i> VEGAN CERTIFIED</span>
+        </div>
+    </div>
+
+            <!-- Products Section -->
+    <section id="products" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1 bg-earth-green/10 text-earth-green rounded-full text-sm font-semibold mb-4">Our Collection</span>
+                <h2 class="text-4xl lg:text-5xl font-bold text-earth-green mb-4">Plant-Based Goodness</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Every sip is a step towards a kinder, greener planet. Choose your favorite from our range of delicious plant-based milks.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product 1: Oat Milk -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="relative h-80 bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center p-6">
+                        <img src="https://cdn.shopify.com/s/files/1/0603/2222/0820/files/Oats_drink_Unsweetened.png?v=1722417772" 
+                             alt="Only Earth Oats Milk" 
+                             class="h-64 w-auto object-contain drop-shadow-lg"
+                             onerror="this.src='https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=500&fit=crop'">
+                        <div class="absolute top-4 left-4 bg-earth-orange text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">BESTSELLER</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-xs font-semibold">Oats</span>
+                            <span class="px-2 py-1 bg-green-100 text-earth-green rounded text-xs font-semibold">1L</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Oats Milk Unsweetened</h3>
+                        <p class="text-gray-500 text-sm mb-4">Creamy, smooth, and perfect for your morning coffee or cereal. Rich in calcium & vitamins.</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-earth-green">Rs.259</span>
+                                <span class="text-sm text-gray-400 line-through ml-1">Rs.279</span>
+                            </div>
+                            <button class="px-4 py-2 bg-earth-green text-white rounded-full text-sm font-medium hover:bg-earth-dark transition-colors add-to-cart-btn" data-product="Oat Milk" data-price="259">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Coconut Milk -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="relative h-80 bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center p-6">
+                        <img src="https://cdn.shopify.com/s/files/1/0603/2222/0820/files/Coconut_drink_Unsweetened.png?v=1722417772" 
+                             alt="Only Earth Coconut Milk" 
+                             class="h-64 w-auto object-contain drop-shadow-lg"
+                             onerror="this.src='https://images.unsplash.com/photo-1536657464919-892534f60d6e?w=400&h=500&fit=crop'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Coconut</span>
+                            <span class="px-2 py-1 bg-green-100 text-earth-green rounded text-xs font-semibold">1L</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Coconut Drink Unsweetened</h3>
+                        <p class="text-gray-500 text-sm mb-4">Tropical goodness in every sip. Light, refreshing, and packed with natural electrolytes.</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-earth-green">Rs.279</span>
+                            </div>
+                            <button class="px-4 py-2 bg-earth-green text-white rounded-full text-sm font-medium hover:bg-earth-dark transition-colors add-to-cart-btn" data-product="Coconut Milk" data-price="279">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Almond Milk -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="relative h-80 bg-gradient-to-br from-sky-50 to-cyan-50 flex items-center justify-center p-6">
+                        <img src="https://cdn.shopify.com/s/files/1/0603/2222/0820/files/Almond.png?v=1722417772" 
+                             alt="Only Earth Almond Milk" 
+                             class="h-64 w-auto object-contain drop-shadow-lg"
+                             onerror="this.src='https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=400&h=500&fit=crop'">
+                        <div class="absolute top-4 right-4 bg-sky-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">NEW</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-sky-100 text-sky-600 rounded text-xs font-semibold">Almond</span>
+                            <span class="px-2 py-1 bg-green-100 text-earth-green rounded text-xs font-semibold">1L</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Almond Milk</h3>
+                        <p class="text-gray-500 text-sm mb-4">Nutty, creamy perfection. Rich in Vitamin E and naturally low in calories.</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-earth-green">Rs.299</span>
+                                <span class="text-sm text-gray-400 line-through ml-1">Rs.349</span>
+                            </div>
+                            <button class="px-4 py-2 bg-earth-green text-white rounded-full text-sm font-medium hover:bg-earth-dark transition-colors add-to-cart-btn" data-product="Almond Milk" data-price="299">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4: Barista Edition -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="relative h-80 bg-gradient-to-br from-orange-50 to-amber-50 flex items-center justify-center p-6">
+                        <img src="https://cdn.shopify.com/s/files/1/0603/2222/0820/files/Oats_Barista_Edition.png?v=1722417772" 
+                             alt="Only Earth Barista Edition" 
+                             class="h-64 w-auto object-contain drop-shadow-lg"
+                             onerror="this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400&h=500&fit=crop'">
+                        <div class="absolute top-4 left-4 bg-earth-orange text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">BARISTA FAV</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-amber-100 text-amber-700 rounded text-xs font-semibold">Barista</span>
+                            <span class="px-2 py-1 bg-green-100 text-earth-green rounded text-xs font-semibold">1L</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Oats Barista Edition</h3>
+                        <p class="text-gray-500 text-sm mb-4">Thick & creamy, specially crafted for the perfect latte art and frothy coffees.</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-earth-green">Rs.289</span>
+                            </div>
+                            <button class="px-4 py-2 bg-earth-green text-white rounded-full text-sm font-medium hover:bg-earth-dark transition-colors add-to-cart-btn" data-product="Barista Edition" data-price="289">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5: Oat Shakes -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="relative h-80 bg-gradient-to-br from-rose-50 to-pink-50 flex items-center justify-center p-6">
+                        <img src="https://cdn.shopify.com/s/files/1/0603/2222/0820/files/Oats_Shake_Cold_Coffee.png?v=1722417772" 
+                             alt="Only Earth Oat Shake" 
+                             class="h-64 w-auto object-contain drop-shadow-lg"
+                             onerror="this.src='https://images.unsplash.com/photo-1577805947697-89e18249d767?w=400&h=500&fit=crop'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-1 bg-pink-100 text-pink-600 rounded text-xs font-semibold">Shake</span>
+                            <span class="px-2 py-1 bg-green-100 text-earth-green rounded text-xs font-semibold">180ml</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Oat Shake - Cold Coffee</h3>
+                        <p class="text-gray-500 text-sm mb-4">Ready-to-drink deliciousness. Your perfect on-the-go energy boost.</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-earth-green">Rs.45</span>
+                                <span class="text-sm text-gray-400 line-through ml-1">Rs.55</span>
+                            </div>
+                            <button class="px-4 py-2 bg-earth-green text-white rounded-full text-sm font-medium hover:bg-earth-dark transition-colors add-to-cart-btn" data-product="Oat Shake" data-price="45">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6: Discovery Bundle -->
+                <div class="bg-gradient-to-br from-earth-green to-earth-dark rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-white">
+                    <div class="relative h-80 flex items-center justify-center p-6">
+                        <div class="text-center">
+                            <div class="w-24 h-24 bg-white/20 backdrop-blur rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-2">Discovery Bundle</h3>
+                            <p class="text-white/80 text-sm">All 3 flavors + 2 Shakes</p>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-white/10 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold mb-2">Family Pack</h3>
+                        <p class="text-white/70 text-sm mb-4">Get Oat, Coconut, Almond 1L each + 2 Cold Coffee Shakes. Save Rs.100!</p>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold">Rs.799</span>
+                                <span class="text-sm text-white/60 line-through ml-1">Rs.899</span>
+                            </div>
+                            <button class="px-4 py-2 bg-white text-earth-green rounded-full text-sm font-medium hover:bg-earth-cream transition-colors add-to-cart-btn" data-product="Discovery Bundle" data-price="799">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All Button -->
+            <div class="text-center mt-12">
+                <button class="px-8 py-3 border-2 border-earth-green text-earth-green rounded-full font-medium hover:bg-earth-green hover:text-white transition-all duration-300">
+                    View All Products
+                </button>
+            </div>
+        </div>
+    </section>
+<!-- Mission Section -->
+    <section id="mission" class="py-24 bg-earth-green relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="section-reveal">
+                    <span class="inline-block px-4 py-1 bg-white/10 text-earth-light rounded-full text-sm font-semibold mb-6">Our Mission</span>
+                    <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                        On a Mission to Save<br>Our <span class="font-serif italic text-earth-light">Only Earth</span>
+                    </h2>
+                    <p class="text-white/80 text-lg leading-relaxed mb-8">
+                        We believe in a world where delicious food doesn't come at the cost of our planet. Every Only Earth pack you buy supports wildlife conservation, afforestation, and ocean preservation.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-earth-light/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="paw-print" class="w-6 h-6 text-earth-light"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-lg mb-1">Wildlife Conservation</h4>
+                                <p class="text-white/60 text-sm">Every pack features an endangered species. Currently supporting Rhino, Orangutan & Red Panda conservation.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-earth-light/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="trees" class="w-6 h-6 text-earth-light"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-lg mb-1">100,000 Trees Goal</h4>
+                                <p class="text-white/60 text-sm">We're committed to planting 100,000 mangrove trees in 5 years. Mangroves sequester 6-8 tons of CO2 per hectare annually.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-earth-light/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="waves" class="w-6 h-6 text-earth-light"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-lg mb-1">Ocean Conservation</h4>
+                                <p class="text-white/60 text-sm">We've planted 1,600 corals in the Maldives. Coral reefs support 25% of all marine life.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative section-reveal">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4 mt-8">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-colors">
+                                <i data-lucide="droplets" class="w-8 h-8 text-earth-light mb-3"></i>
+                                <p class="text-3xl font-bold text-white mb-1">50L</p>
+                                <p class="text-white/60 text-sm">Water saved per liter vs dairy</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-colors">
+                                <i data-lucide="cloud" class="w-8 h-8 text-earth-light mb-3"></i>
+                                <p class="text-3xl font-bold text-white mb-1">73%</p>
+                                <p class="text-white/60 text-sm">Less CO2 emissions</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-colors">
+                                <i data-lucide="heart" class="w-8 h-8 text-earth-light mb-3"></i>
+                                <p class="text-3xl font-bold text-white mb-1">0%</p>
+                                <p class="text-white/60 text-sm">Animal cruelty</p>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-colors">
+                                <i data-lucide="map-pin" class="w-8 h-8 text-earth-light mb-3"></i>
+                                <p class="text-3xl font-bold text-white mb-1">25+</p>
+                                <p class="text-white/60 text-sm">Cities available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-24 bg-earth-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1 bg-earth-green/10 text-earth-green rounded-full text-sm font-semibold mb-4">Why Only Earth?</span>
+                <h2 class="text-4xl lg:text-5xl font-bold text-earth-green mb-4">Good From The Inside Out</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 section-reveal">
+                    <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="leaf" class="w-8 h-8 text-earth-green"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">100% Plant Based</h3>
+                    <p class="text-gray-500 text-sm">Made from natural ingredients sourced from around the world. No animal products ever.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 section-reveal">
+                    <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="ban" class="w-8 h-8 text-earth-orange"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Zero Compromise</h3>
+                    <p class="text-gray-500 text-sm">No added sugar, no preservatives, no cholesterol, no trans fats. Pure goodness only.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 section-reveal">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="heart-pulse" class="w-8 h-8 text-earth-sky"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Packed with Nutrition</h3>
+                    <p class="text-gray-500 text-sm">Rich in Calcium, Vitamin B12, B1, B2 & Vitamin D. Everything your body needs.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1 section-reveal">
+                    <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="chef-hat" class="w-8 h-8 text-amber-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Delicious Taste</h3>
+                    <p class="text-gray-500 text-sm">Creamy texture that works perfectly in coffee, tea, cereals, smoothies & desserts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1 bg-earth-green/10 text-earth-green rounded-full text-sm font-semibold mb-4">Testimonials</span>
+                <h2 class="text-4xl lg:text-5xl font-bold text-earth-green mb-4">Loved by Thousands</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-earth-cream rounded-3xl p-8 section-reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">"The first thing I look for is the absence of additives. Only Earth Oat milk is really good quality, and its texture is versatile too. Chai, hot chocolate & kheer taste amazing!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-earth-green/10 rounded-full flex items-center justify-center">
+                            <span class="text-earth-green font-bold">DS</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-900">Dhvanishah</p>
+                            <p class="text-sm text-gray-500">Nutritionist</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-earth-cream rounded-3xl p-8 section-reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">"Loved this product! It was always a task to find vegan milk that tastes good. The coconut milk tastes so much better than regular milk. Our go-to for cereals and tea!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-earth-orange/10 rounded-full flex items-center justify-center">
+                            <span class="text-earth-orange font-bold">WT</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-900">@wheelsandtails</p>
+                            <p class="text-sm text-gray-500">Travel Blogger</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-earth-cream rounded-3xl p-8 section-reveal">
+                    <div class="flex items-center gap-1 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                        <i data-lucide="star" class="w-5 h-5 text-amber-400 fill-amber-400"></i>
+                    </div>
+                    <p class="text-gray-700 mb-6 leading-relaxed">"Whoever said plant based milk tastes bad, has never tasted Only Earth! It's an outright winner - earth friendly and lactose free. My digestion has never been better."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-earth-sky/20 rounded-full flex items-center justify-center">
+                            <span class="text-sky-600 font-bold">FG</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-900">@fitgirl.india</p>
+                            <p class="text-sm text-gray-500">Fitness Influencer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipes Section -->
+    <section id="recipes" class="py-24 bg-earth-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1 bg-earth-green/10 text-earth-green rounded-full text-sm font-semibold mb-4">Recipes</span>
+                <h2 class="text-4xl lg:text-5xl font-bold text-earth-green mb-4">Cook with Only Earth</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Discover delicious recipes that bring out the best in our plant-based milks</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group cursor-pointer section-reveal">
+                    <div class="relative h-64 rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500&h=400&fit=crop" alt="Smoothie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="px-3 py-1 bg-earth-green/80 rounded-full text-xs font-medium">Breakfast</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-earth-green transition-colors">Plant-Based Breakfast Smoothie</h3>
+                    <p class="text-gray-500 text-sm mb-3">A refreshing start to your day with oats milk, bananas, and berries.</p>
+                    <span class="text-earth-green font-medium text-sm flex items-center gap-1">View Recipe <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                </div>
+
+                <div class="group cursor-pointer section-reveal">
+                    <div class="relative h-64 rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500&h=400&fit=crop" alt="Panna Cotta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="px-3 py-1 bg-earth-orange/80 rounded-full text-xs font-medium">Dessert</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-earth-green transition-colors">Oat & Rose Panna Cotta</h3>
+                    <p class="text-gray-500 text-sm mb-3">A delicate, creamy dessert that's completely vegan and guilt-free.</p>
+                    <span class="text-earth-green font-medium text-sm flex items-center gap-1">View Recipe <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                </div>
+
+                <div class="group cursor-pointer section-reveal">
+                    <div class="relative h-64 rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&h=400&fit=crop" alt="Coffee" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <span class="px-3 py-1 bg-earth-sky/80 rounded-full text-xs font-medium">Drink</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-earth-green transition-colors">Barista Style Latte</h3>
+                    <p class="text-gray-500 text-sm mb-3">The perfect frothy latte using our Barista Edition oat milk.</p>
+                    <span class="text-earth-green font-medium text-sm flex items-center gap-1">View Recipe <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 bg-earth-green relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 section-reveal">
+            <h2 class="text-4xl lg:text-6xl font-bold text-white mb-6">Ready to Make the Switch?</h2>
+            <p class="text-white/80 text-xl mb-8 max-w-2xl mx-auto">Join thousands of conscious consumers who've already chosen a kinder, greener way to enjoy milk. Your first order ships free!</p>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <div class="flex items-center gap-2 text-white/80"><i data-lucide="check-circle" class="w-5 h-5 text-earth-light"></i><span>Free Shipping</span></div>
+                <div class="flex items-center gap-2 text-white/80"><i data-lucide="check-circle" class="w-5 h-5 text-earth-light"></i><span>30-Day Returns</span></div>
+                <div class="flex items-center gap-2 text-white/80"><i data-lucide="check-circle" class="w-5 h-5 text-earth-light"></i><span>Secure Payment</span></div>
+            </div>
+
+            <button class="px-10 py-5 bg-white text-earth-green rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-2xl" onclick="scrollToProducts()">
+                Shop Now - Start Your Journey
+            </button>
+
+            <p class="text-white/50 text-sm mt-6">Available on Amazon, BigBasket, Blinkit, Zepto & 1000+ stores</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-earth-dark text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-earth-light rounded-full flex items-center justify-center">
+                            <i data-lucide="leaf" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="text-2xl font-bold">Only Earth</span>
+                    </div>
+                    <p class="text-white/60 text-sm leading-relaxed mb-6">On a mission to save our Only Earth. 100% plant-based goodness that's kinder to animals and better for you.</p>
+                    <div class="flex gap-4">
+                        <a href="https://www.instagram.com/onlyearthofficial" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-earth-light transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-earth-light transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-earth-light transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-lg mb-6">Products</h4>
+                    <ul class="space-y-3 text-white/60 text-sm">
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Oat Milk</a></li>
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Coconut Milk</a></li>
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Almond Milk</a></li>
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Barista Edition</a></li>
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Oat Shakes</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-lg mb-6">Company</h4>
+                    <ul class="space-y-3 text-white/60 text-sm">
+                        <li><a href="#" class="hover:text-earth-light transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Our Mission</a></li>
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Recipes</a></li>
+                        <li><a href="#" class="hover:text-earth-light transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-lg mb-6">Stay Updated</h4>
+                    <p class="text-white/60 text-sm mb-4">Subscribe for exclusive offers, recipes, and sustainability tips.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Your email" class="flex-1 px-4 py-3 bg-white/10 border border-white/20 rounded-full text-sm text-white placeholder-white/40 focus:outline-none focus:border-earth-light">
+                        <button class="px-6 py-3 bg-earth-light text-white rounded-full font-medium hover:bg-earth-green transition-colors">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-white/40 text-sm"> 2024 Only Earth. All rights reserved.</p>
+                <div class="flex gap-6 text-white/40 text-sm">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Shipping Info</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-2xl z-50" id="cartSidebar">
+        <div class="h-full flex flex-col">
+            <div class="p-6 border-b flex items-center justify-between">
+                <h3 class="text-xl font-bold text-earth-green">Your Cart</h3>
+                <button id="closeCart" class="p-2 hover:bg-gray-100 rounded-full">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6" id="cartItems">
+                <div class="text-center text-gray-400 py-12">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 opacity-30"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <p>Your cart is empty</p>
+                    <button class="mt-4 text-earth-green font-medium hover:underline" onclick="closeCartAndScroll()">Start Shopping</button>
+                </div>
+            </div>
+            <div class="p-6 border-t bg-gray-50">
+                <div class="flex justify-between mb-4">
+                    <span class="font-medium">Total</span>
+                    <span class="font-bold text-xl text-earth-green" id="cartTotal">Rs.0</span>
+                </div>
+                <button class="w-full py-4 bg-earth-green text-white rounded-full font-bold hover:bg-earth-dark transition-colors">
+                    Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="fixed inset-0 bg-black/50 z-40 hidden" id="cartOverlay"></div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80">
+        <div class="relative bg-black rounded-2xl overflow-hidden max-w-4xl w-full">
+            <button onclick="closeVideoModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="aspect-video flex items-center justify-center text-white">
+                <div class="text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 opacity-60"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                    <p class="text-lg">Brand Story Video Coming Soon</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast fixed bottom-8 left-1/2 z-50" id="toast">
+        <div class="bg-earth-green text-white px-6 py-3 rounded-full shadow-xl flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span id="toastMessage">Added to cart!</span>
+        </div>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/917521900880?text=Hi%20Only%20Earth!%20I'm%20interested%20in%20your%20plant-based%20products." 
+       target="_blank"
+       class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform group">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    </a>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Cart functionality
+        let cart = [];
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center text-gray-400 py-12">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4 opacity-30"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                        <p>Your cart is empty</p>
+                        <button class="mt-4 text-earth-green font-medium hover:underline" onclick="closeCartAndScroll()">Start Shopping</button>
+                    </div>
+                `;
+                cartTotal.textContent = 'Rs.0';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = cart.map((item, index) => {
+                    total += item.price;
+                    return `
+                        <div class="flex items-center gap-4 mb-4 p-4 bg-gray-50 rounded-xl">
+                            <div class="w-16 h-16 bg-earth-green/10 rounded-lg flex items-center justify-center text-earth-green font-bold text-xl">🌱</div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-900">${item.name}</h4>
+                                <p class="text-earth-green font-bold">Rs.${item.price}</p>
+                            </div>
+                            <button onclick="removeFromCart(${index})" class="p-2 hover:bg-red-50 rounded-full text-red-500 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+                cartTotal.textContent = 'Rs.' + total;
+            }
+        }
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCart();
+            showToast(name + ' added to cart!');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Cart sidebar toggle
+        const cartBtn = document.getElementById('cartBtn');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const closeCartBtn = document.getElementById('closeCart');
+        const cartOverlay = document.getElementById('cartOverlay');
+
+        function openCart() {
+            cartSidebar.classList.add('open');
+            cartOverlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCartFunc() {
+            cartSidebar.classList.remove('open');
+            cartOverlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function closeCartAndScroll() {
+            closeCartFunc();
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        cartBtn.addEventListener('click', openCart);
+        closeCartBtn.addEventListener('click', closeCartFunc);
+        cartOverlay.addEventListener('click', closeCartFunc);
+
+        // Add to cart buttons
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const product = this.getAttribute('data-product');
+                const price = parseInt(this.getAttribute('data-price'));
+                addToCart(product, price);
+            });
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Scroll to products
+        function scrollToProducts() {
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Video modal
+        function showVideoModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-blur', 'shadow-sm');
+            } else {
+                navbar.classList.remove('nav-blur', 'shadow-sm');
+            }
+        });
+
+        // Intersection Observer for section reveals
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // GSAP disabled - using CSS animations only for better performance
+
+        // Product cards are visible by default - no hiding
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    
+        // Force visibility on all product cards after load
+        window.addEventListener('load', function() {
+            document.querySelectorAll('#products div, #products img, #products button').forEach(el => {
+                el.style.opacity = '1';
+                el.style.visibility = 'visible';
+                el.style.display = el.tagName === 'DIV' ? 'block' : '';
+            });
+        });
+    </script>
+</body>
+</html>
